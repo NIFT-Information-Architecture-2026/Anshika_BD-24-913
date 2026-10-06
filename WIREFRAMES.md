@@ -18,7 +18,7 @@ flowchart TD
     ManualPin --> Home
     
     Home --> SOSClick["Tap: Found an Animal (SOS)"]
-    SOSClick --> FastReport["Guest Emergency SOS Form (Photo + Hazard Tags + Recipients)"]
+    SOSClick --> FastReport["Guest Emergency SOS Form"]
     FastReport --> PhoneOTP["Quick 1-Tap Phone OTP Verification"]
     PhoneOTP --> Dispatch["Dispatch Multi-Broadcast Alert"]
 ```
@@ -89,11 +89,30 @@ flowchart TD
 
 ## 5. Page 2: Emergency SOS Flow (Bystander vs. Helper Dual Perspective)
 
-### Bystander Creation Flow
-1. **Screen 2.1: Location Pin Drop:** Auto-detected GPS address + draggable precision pin + landmark notes.
-2. **Screen 2.2: Media Capture:** Photo / 5-sec video upload (up to 3 photos, option to skip if dangerous).
-3. **Screen 2.3: Condition & Hazard Tags:** Species selector (`Dog`, `Cat`, `Bird`, `Cattle`), Severity badges (`Bleeding`, `Fracture`, `Sick`, `Trapped`), Hazard flags (`Biting Risk`, `Infection Risk`, `High Traffic`).
-4. **Screen 2.4: Recipient Dispatch Selector:** Multi-check selection for `Volunteers (3km)`, `NGOs`, `Vets`, `Transport`.
+### Bystander Creation Flow (Strict Priority Order)
+
+```
+[ Step 2.1: LOCATION (MANDATORY) ]
+  • Auto GPS pin lock + Landmark note. Cannot skip.
+            │
+            ▼
+[ Step 2.2: CONDITION & HAZARD TAGS (MANDATORY) ]
+  • Species (Dog/Cat/Bird/Cattle)
+  • Severity (Bleeding/Fracture/Sick/Trapped)
+  • Hazard Flags (Biting Risk / Infection Risk). Cannot skip.
+            │
+            ▼
+[ Step 2.3: RECIPIENT SELECTOR (MANDATORY) ]
+  • Multi-select (Volunteers, NGOs, Vets, Transport). Cannot skip.
+            │
+            ▼
+[ Step 2.4: PHOTO UPLOAD (OPTIONAL / SECONDARY) ]
+  • Upload Photo/Video OR tap [ SKIP & DISPATCH INSTANTLY ]
+  • Can add photos later while waiting for helper to accept.
+            │
+            ▼
+[ 🚨 INSTANT EMERGENCY DISPATCH ]
+```
 
 ---
 
@@ -109,6 +128,7 @@ flowchart TD
 ├── Distance: 1.2 km (4 mins away)
 ├── Animal: Injured Dog (Bleeding / Critical)
 ├── Hazard Warning: ⚠️ Biting Risk / High Traffic Area
+├── Photo: [ Photo Attached OR "Photo Pending from Bystander" ]
 ├── Bystander: Priyanka S. (Verified Bystander)
 └── Actions: [ ✋ ACCEPT RESCUE ]  [ 💬 Chat ]  [ ⏩ Pass ]
             │
