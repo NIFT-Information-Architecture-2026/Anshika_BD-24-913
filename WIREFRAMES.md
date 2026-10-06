@@ -1,7 +1,7 @@
 # Paw ResQ: Low-Fidelity Wireframes & User Flows (Phase 4)
 
 ## 1. Overview
-This document specifies the structural wireframes, layout logic, and user flows for **Paw ResQ**, incorporating the mandatory location-first architecture, dual user perspectives (Bystander vs. Helper), Guest SOS emergency flow, and clean bottom navigation bar.
+This document specifies the structural wireframes, layout logic, and user flows for **Paw ResQ**, incorporating the mandatory location-first architecture, dual user perspectives (Bystander vs. Helper), Guest SOS emergency flow, clean bottom navigation bar, and detailed step-by-step page designs.
 
 ---
 
@@ -63,8 +63,6 @@ flowchart TD
 +-------------------------------------------------------------+
 ```
 
----
-
 ### Perspective B: The Helper / Responder (Volunteer, NGO, Vet)
 
 ```
@@ -85,4 +83,38 @@ flowchart TD
 +-------------------------------------------------------------+
 | [🏠 Home]   [🔍 Search]   [🚨 SOS]   [💬 Chat]   [👤 Profile]|
 +-------------------------------------------------------------+
+```
+
+---
+
+## 5. Page 2: Emergency SOS Flow (Bystander vs. Helper Dual Perspective)
+
+### Bystander Creation Flow
+1. **Screen 2.1: Location Pin Drop:** Auto-detected GPS address + draggable precision pin + landmark notes.
+2. **Screen 2.2: Media Capture:** Photo / 5-sec video upload (up to 3 photos, option to skip if dangerous).
+3. **Screen 2.3: Condition & Hazard Tags:** Species selector (`Dog`, `Cat`, `Bird`, `Cattle`), Severity badges (`Bleeding`, `Fracture`, `Sick`, `Trapped`), Hazard flags (`Biting Risk`, `Infection Risk`, `High Traffic`).
+4. **Screen 2.4: Recipient Dispatch Selector:** Multi-check selection for `Volunteers (3km)`, `NGOs`, `Vets`, `Transport`.
+
+---
+
+### Helper Response Flow (Simultaneous Action)
+```
+[ Bystander Dispatches SOS ]
+            │
+            ▼ (Geo-fenced broadcast to On-Duty Helpers within 3 km)
+[ Screen 2.1H: High-Priority Push Notification & Lock Screen Sound ]
+            │
+            ▼
+[ Screen 2.2H: Rescue Alert Card Modal ]
+├── Distance: 1.2 km (4 mins away)
+├── Animal: Injured Dog (Bleeding / Critical)
+├── Hazard Warning: ⚠️ Biting Risk / High Traffic Area
+├── Bystander: Priyanka S. (Verified Bystander)
+└── Actions: [ ✋ ACCEPT RESCUE ]  [ 💬 Chat ]  [ ⏩ Pass ]
+            │
+            ▼ (Helper taps Accept)
+[ Screen 2.3H: Active Navigation & On-Site Handoff Console ]
+├── Live GPS Turn-by-Turn Navigation to Animal Location
+├── Direct Phone / Chat bridge to Bystander
+└── Action Buttons: [ I Have Arrived ] [ Request Ambulance ] [ Complete Handoff ]
 ```
