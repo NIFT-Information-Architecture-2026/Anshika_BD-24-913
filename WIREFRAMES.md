@@ -1,58 +1,51 @@
 # Paw ResQ: Low-Fidelity Wireframes & User Flows (Phase 4)
 
 ## 1. Overview
-This document specifies the structural wireframes, layout logic, and user flows for **Paw ResQ**, incorporating the mandatory location-first architecture, dual user perspectives (Bystander vs. Helper), and top/bottom navigation layouts.
+This document specifies the structural wireframes, layout logic, and user flows for **Paw ResQ**, incorporating the mandatory location-first architecture, dual user perspectives (Bystander vs. Helper), Guest SOS emergency flow, and clean bottom navigation bar.
 
 ---
 
-## 2. Non-Skippable Location Mandate Architecture
-```
-[ App Launch ]
-      │
-      ▼
-[ Auto-Detect GPS Location ] ─── (Success) ───► [ Lock Geolocation Pin in Top Header ]
-      │
-   (Fails / Permission Disabled)
-      │
-      ▼
-[ Full-Screen Mandatory Location Modal: "Paw ResQ requires location to connect you with nearby help" ]
+## 2. Non-Skippable Location & Guest SOS Flow
+```mermaid
+flowchart TD
+    AppLaunch["App Opened (Guest or Logged In)"] --> GPS["Auto-Detect GPS Location"]
+    GPS --> LocationConfirm{"Location Detected?"}
+    
+    LocationConfirm -- Yes --> LockPin["Lock Location Pin in Top Header"]
+    LocationConfirm -- No --> ManualPin["Mandatory Location Selection Modal"]
+    
+    LockPin --> Home["Home Screen"]
+    ManualPin --> Home
+    
+    Home --> SOSClick["Tap: Found an Animal (SOS)"]
+    SOSClick --> FastReport["Guest Emergency SOS Form (Photo + Hazard Tags + Recipients)"]
+    FastReport --> PhoneOTP["Quick 1-Tap Phone OTP Verification"]
+    PhoneOTP --> Dispatch["Dispatch Multi-Broadcast Alert"]
 ```
 
 ---
 
-## 3. Home Screen Interface: Dual Perspective Analysis
+## 3. Clean Bottom Navigation Bar Schema
+
+```
++-----------------------------------------------------------------------+
+|  [ 🏠 Home ]    [ 🔍 Search ]    [ 🚨 Quick SOS ]    [ 💬 Chat ]    [ 👤 Profile ]  |
++-----------------------------------------------------------------------+
+```
+
+---
+
+## 4. Home Screen Interface: Dual Perspective Layouts
 
 ### Perspective A: The Reporter / Bystander (Finding an Animal)
-* **Primary Need:** Maximum speed, zero friction, obvious primary emergency call-to-action.
-* **Header:** Profile indicator (left), Notification bell + Map pin locator (right). Current detected address displayed in top banner.
-* **Body Action Cards:**
-  1. 🚨 **Found an Animal** *(Primary Highlighted Card - Triggers Emergency Form)*
-  2. 🛟 **Active Rescues** *(Tracks status of previously reported rescues)*
-  3. 🩺 **Nearby Vets** *(Quick map/list view of emergency clinics)*
-* **Bottom Bar:** Search bar in center, In-app chat box icon in corner.
-
----
-
-### Perspective B: The Helper / Responder (Volunteer, NGO, Vet)
-* **Primary Need:** Immediate awareness of incoming emergency pings in their area, status toggles (Available / Offline).
-* **Header:** Helper Profile with Verified Badge (left), Active Rescue Alerts counter + Map View of open cases (right).
-* **Body Action Cards:**
-  1. ⚡ **Incoming Emergency Alerts** *(List of nearby open animal reports needing help)*
-  2. 🩺 **Vet / Shelter Status** *(Update clinic availability or transport capacity)*
-  3. 📋 **Assigned Cases** *(Current active rescues being handled)*
-* **Bottom Bar:** Search bar in center, Direct Chat with Bystanders in corner.
-
----
-
-## 4. Textual Low-Fidelity Layout: Home Screen (Bystander View)
 
 ```
 +-------------------------------------------------------------+
-| [Avatar / Sign Up]   📍 Hitech City, Hyd    [🔔]  [🗺️ Map]  |
+| [Profile / Sign In]   📍 Hitech City, Hyd   [🔔]  [🗺️ Map]  |
 +-------------------------------------------------------------+
 |                                                             |
 |   +-----------------------------------------------------+   |
-|   | 🚨 FOUND AN INJURED ANIMAL                          |   |
+|   | 🚨 FOUND AN INJURED ANIMAL (HERO SOS CARD)          |   |
 |   |    Tap for Immediate Location-Based Help            |   |
 |   +-----------------------------------------------------+   |
 |                                                             |
@@ -62,21 +55,21 @@ This document specifies the structural wireframes, layout logic, and user flows 
 |   +--------------------------+  +-----------------------+   |
 |                                                             |
 |   +-----------------------------------------------------+   |
-|   | 💡 Quick First-Aid Tip: Do not move animal if bleeding|  |
+|   | 💡 First-Aid Card: Keep animal warm & quiet          |   |
 |   +-----------------------------------------------------+   |
 |                                                             |
 +-------------------------------------------------------------+
-| [ 🔍 Search nearby Vets, NGOs... ]              [ 💬 Chat ] |
+| [🏠 Home]   [🔍 Search]   [🚨 SOS]   [💬 Chat]   [👤 Profile]|
 +-------------------------------------------------------------+
 ```
 
 ---
 
-## 5. Textual Low-Fidelity Layout: Home Screen (Helper View)
+### Perspective B: The Helper / Responder (Volunteer, NGO, Vet)
 
 ```
 +-------------------------------------------------------------+
-| [Verified Helper ID]  🟢 Status: Active    [🔔 (3)] [🗺️ Map]  |
+| [Verified Helper ID]  🟢 Status: On-Duty   [🔔 (3)] [🗺️ Map] |
 +-------------------------------------------------------------+
 |                                                             |
 |   +-----------------------------------------------------+   |
@@ -90,6 +83,6 @@ This document specifies the structural wireframes, layout logic, and user flows 
 |   +--------------------------+  +-----------------------+   |
 |                                                             |
 +-------------------------------------------------------------+
-| [ 🔍 Search Rescues, Cases... ]                 [ 💬 Chat ] |
+| [🏠 Home]   [🔍 Search]   [🚨 SOS]   [💬 Chat]   [👤 Profile]|
 +-------------------------------------------------------------+
 ```
