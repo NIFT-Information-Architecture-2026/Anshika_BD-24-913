@@ -30,7 +30,7 @@ flowchart TD
 ```
 +-----------------------------------------------------------------------+
 |  [ 🏠 Home ]    [ 🔍 Search ]    [ 🚨 Quick SOS ]    [ 💬 Chat ]    [ 👤 Profile ]  |
-+-------------------------------------------------------------+
++-----------------------------------------------------------------------+
 ```
 
 ---
@@ -63,87 +63,51 @@ flowchart TD
 +-------------------------------------------------------------+
 ```
 
-### Perspective B: The Helper / Responder (Volunteer, NGO, Vet)
+---
+
+## 5. Page 2: Emergency SOS Flow (Bystander vs. Helper Dual Perspective)
+
+### Bystander Creation Flow (Strict Priority Order)
+1. **Step 2.1: LOCATION (MANDATORY):** Auto GPS pin lock + Landmark note. Cannot be skipped.
+2. **Step 2.2: CONDITION & HAZARD TAGS (MANDATORY):** Species, Severity badge, Hazard flags. Cannot be skipped.
+3. **Step 2.3: RECIPIENT SELECTOR (MANDATORY):** Multi-select (Volunteers, NGOs, Vets, Transport). Cannot be skipped.
+4. **Step 2.4: PHOTO UPLOAD (OPTIONAL / SECONDARY):** Upload photo or tap `[ SKIP & DISPATCH INSTANTLY ]`. Can add photo later while waiting for helper.
+
+---
+
+## 6. Page 3: Search & Directory Screen (`[ 🔍 Search ]` Tab)
+
+### Overview & Purpose
+Page 3 provides a fast, location-filtered directory connecting users with nearby verified care providers (Veterinarians, NGOs, Rescuers, Shelters, and Transport).
 
 ```
 +-------------------------------------------------------------+
-| [Verified Helper ID]  🟢 Status: On-Duty   [🔔 (3)] [🗺️ Map] |
+| 🔍 [ Search Vets, NGOs, Rescuers...       ]   [⚙️ Filter]   |
++-------------------------------------------------------------+
+| ( [All]  [🩺 Vets]  [🏢 NGOs]  [🛟 Rescuers]  [🏠 Shelters] )|
++-------------------------------------------------------------+
+| 📍 Results within 5 km of Hitech City        [🗺️ Map View] |
 +-------------------------------------------------------------+
 |                                                             |
-|   +-----------------------------------------------------+   |
-|   | ⚡ 3 OPEN RESCUE PINGS WITHIN 3 KM                   |   |
-|   |    Tap to view details and accept emergency         |   |
-|   +-----------------------------------------------------+   |
+|  +-------------------------------------------------------+  |
+|  | 🩺 Dr. Sharma Emergency Pet Clinic   🟢 Open 24/7     |  |
+|  |    Verified Vet ✓ | ★ 4.9 (140 reviews) | 1.2 km away |  |
+|  |    [📞 Call Now]    [💬 Chat]    [📍 Directions]      |  |
+|  +-------------------------------------------------------+  |
 |                                                             |
-|   +--------------------------+  +-----------------------+   |
-|   | 📋 MY ASSIGNED CASES     |  | 🚑 TRANSPORT STATUS   |   |
-|   |    2 Active Handoffs     |  |    Ambulance Ready    |   |
-|   +--------------------------+  +-----------------------+   |
+|  +-------------------------------------------------------+  |
+|  | 🏢 Compassion Animal NGO             🟡 Open till 8PM  |  |
+|  |    Verified NGO ✓ | ★ 4.8 (95 rescues) | 2.4 km away   |  |
+|  |    [📞 Call Now]    [💬 Chat]    [📍 Directions]      |  |
+|  +-------------------------------------------------------+  |
 |                                                             |
 +-------------------------------------------------------------+
 | [🏠 Home]   [🔍 Search]   [🚨 SOS]   [💬 Chat]   [👤 Profile]|
 +-------------------------------------------------------------+
 ```
 
----
-
-## 5. Page 2: Emergency SOS Flow (Bystander vs. Helper Dual Perspective)
-
-### Bystander Creation Flow (Strict Priority Order)
-
-```
-[ Step 2.1: LOCATION (MANDATORY) ]
-  • Auto GPS pin lock + Landmark note. Cannot be skipped.
-            │
-            ▼
-[ Step 2.2: CONDITION & HAZARD TAGS (MANDATORY) ]
-  • Species (Dog/Cat/Bird/Cattle)
-  • Severity (Bleeding/Fracture/Sick/Trapped)
-  • Hazard Flags (Biting Risk / Infection Risk). Cannot be skipped.
-            │
-            ▼
-[ Step 2.3: RECIPIENT SELECTOR (MANDATORY) ]
-  • Multi-select (Volunteers, NGOs, Vets, Transport). Cannot be skipped.
-            │
-            ▼
-[ Step 2.4: PHOTO UPLOAD (OPTIONAL / SECONDARY) ]
-  • Upload Photo/Video OR tap [ SKIP & DISPATCH INSTANTLY ]
-  • Can add photos later while waiting for helper to accept.
-            │
-            ▼
-[ 🚨 INSTANT EMERGENCY DISPATCH ]
-```
-
----
-
-### Helper Response Flow & Acceptance Logic
-
-```mermaid
-sequenceDiagram
-    autonumber
-    actor Bystander as Bystander (Reporter)
-    participant Server as Paw ResQ Broadcast Hub
-    actor Helper1 as Helper 1 (Accepts First)
-    actor Helper2 as Helper 2 (Notified Pool)
-    
-    Bystander->>Server: 1. Dispatches Multi-Select SOS (NGOs + Volunteers)
-    Server->>Helper1: 2. Pings Nearby Helpers
-    Server->>Helper2: 2. Pings Nearby Helpers
-    
-    Helper1->>Server: 3. Taps "ACCEPT RESCUE"
-    Server-->>Bystander: 4. Updates Status: "Helper Found: Rahul M. (1.2 km away)"
-    Server-->>Helper2: 5. Card Updates: "Helper Found - Case Assigned to Rahul M."
-    
-    alt Normal Handoff
-        Helper1->>Bystander: Arrives on scene & completes rescue handoff
-    else Helper Cancels / Delay Encountered
-        Helper1->>Server: Taps "Cancel / Unable to Reach"
-        Server-->>Bystander: Alert: "Helper unavailable. Select next available helper."
-        Bystander->>Server: Re-selects / Re-broadcasts to remaining helpers pool
-    end
-```
-
-#### Detailed Acceptance & Cancellation Protocol:
-1. **First-Come Acceptance:** When multiple volunteers/NGOs receive a broadcast ping, the first responder to tap `ACCEPT RESCUE` claims the case.
-2. **Global Status Sync:** The alert card for all other notified helpers immediately updates to **"Helper Found — Assigned to [Helper Name]"** to prevent double-dispatching.
-3. **Cancellation & Re-Dispatch Safety Net:** If the assigned helper cancels, gets delayed in traffic, or cannot proceed, the case status unlocks. The bystander is notified instantly with a prompt: **"Assigned helper unavailable. Tap to re-notify available helpers."**
+### Key Interactive Components of Page 3:
+1. **Top Search Field & Filter Toggle:** Real-time search with filter drawer (`Filter by 24/7 Open`, `Distance Radius`, `Rating > 4.5`, `Verified Badges Only`).
+2. **Horizontal Category Chips:** Quick 1-tap switching between provider categories.
+3. **Map / List View Switcher:** Toggles between card listing and interactive Map Pins showing exact provider locations.
+4. **Direct Action Buttons on Cards:** Every directory card features immediate action CTAs (`Call Now`, `Chat`, `Directions`).
