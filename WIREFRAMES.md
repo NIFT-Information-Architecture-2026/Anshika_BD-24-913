@@ -30,7 +30,7 @@ flowchart TD
 ```
 +-----------------------------------------------------------------------+
 |  [ 🏠 Home ]    [ 🔍 Search ]    [ 🚨 Quick SOS ]    [ 💬 Chat ]    [ 👤 Profile ]  |
-+-----------------------------------------------------------------------+
++-------------------------------------------------------------+
 ```
 
 ---
@@ -93,17 +93,17 @@ flowchart TD
 
 ```
 [ Step 2.1: LOCATION (MANDATORY) ]
-  • Auto GPS pin lock + Landmark note. Cannot skip.
+  • Auto GPS pin lock + Landmark note. Cannot be skipped.
             │
             ▼
 [ Step 2.2: CONDITION & HAZARD TAGS (MANDATORY) ]
   • Species (Dog/Cat/Bird/Cattle)
   • Severity (Bleeding/Fracture/Sick/Trapped)
-  • Hazard Flags (Biting Risk / Infection Risk). Cannot skip.
+  • Hazard Flags (Biting Risk / Infection Risk). Cannot be skipped.
             │
             ▼
 [ Step 2.3: RECIPIENT SELECTOR (MANDATORY) ]
-  • Multi-select (Volunteers, NGOs, Vets, Transport). Cannot skip.
+  • Multi-select (Volunteers, NGOs, Vets, Transport). Cannot be skipped.
             │
             ▼
 [ Step 2.4: PHOTO UPLOAD (OPTIONAL / SECONDARY) ]
@@ -116,25 +116,34 @@ flowchart TD
 
 ---
 
-### Helper Response Flow (Simultaneous Action)
+### Helper Response Flow & Acceptance Logic
+
+```mermaid
+sequenceDiagram
+    autonumber
+    actor Bystander as Bystander (Reporter)
+    participant Server as Paw ResQ Broadcast Hub
+    actor Helper1 as Helper 1 (Accepts First)
+    actor Helper2 as Helper 2 (Notified Pool)
+    
+    Bystander->>Server: 1. Dispatches Multi-Select SOS (NGOs + Volunteers)
+    Server->>Helper1: 2. Pings Nearby Helpers
+    Server->>Helper2: 2. Pings Nearby Helpers
+    
+    Helper1->>Server: 3. Taps "ACCEPT RESCUE"
+    Server-->>Bystander: 4. Updates Status: "Helper Found: Rahul M. (1.2 km away)"
+    Server-->>Helper2: 5. Card Updates: "Helper Found - Case Assigned to Rahul M."
+    
+    alt Normal Handoff
+        Helper1->>Bystander: Arrives on scene & completes rescue handoff
+    else Helper Cancels / Delay Encountered
+        Helper1->>Server: Taps "Cancel / Unable to Reach"
+        Server-->>Bystander: Alert: "Helper unavailable. Select next available helper."
+        Bystander->>Server: Re-selects / Re-broadcasts to remaining helpers pool
+    end
 ```
-[ Bystander Dispatches SOS ]
-            │
-            ▼ (Geo-fenced broadcast to On-Duty Helpers within 3 km)
-[ Screen 2.1H: High-Priority Push Notification & Lock Screen Sound ]
-            │
-            ▼
-[ Screen 2.2H: Rescue Alert Card Modal ]
-├── Distance: 1.2 km (4 mins away)
-├── Animal: Injured Dog (Bleeding / Critical)
-├── Hazard Warning: ⚠️ Biting Risk / High Traffic Area
-├── Photo: [ Photo Attached OR "Photo Pending from Bystander" ]
-├── Bystander: Priyanka S. (Verified Bystander)
-└── Actions: [ ✋ ACCEPT RESCUE ]  [ 💬 Chat ]  [ ⏩ Pass ]
-            │
-            ▼ (Helper taps Accept)
-[ Screen 2.3H: Active Navigation & On-Site Handoff Console ]
-├── Live GPS Turn-by-Turn Navigation to Animal Location
-├── Direct Phone / Chat bridge to Bystander
-└── Action Buttons: [ I Have Arrived ] [ Request Ambulance ] [ Complete Handoff ]
-```
+
+#### Detailed Acceptance & Cancellation Protocol:
+1. **First-Come Acceptance:** When multiple volunteers/NGOs receive a broadcast ping, the first responder to tap `ACCEPT RESCUE` claims the case.
+2. **Global Status Sync:** The alert card for all other notified helpers immediately updates to **"Helper Found — Assigned to [Helper Name]"** to prevent double-dispatching.
+3. **Cancellation & Re-Dispatch Safety Net:** If the assigned helper cancels, gets delayed in traffic, or cannot proceed, the case status unlocks. The bystander is notified instantly with a prompt: **"Assigned helper unavailable. Tap to re-notify available helpers."**
