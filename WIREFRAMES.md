@@ -1,7 +1,7 @@
 # Paw ResQ: Low-Fidelity Wireframes & User Flows (Phase 4)
 
 ## 1. Overview
-This document specifies the structural wireframes, layout logic, and user flows for **Paw ResQ**, incorporating the mandatory location-first architecture, dual user perspectives (Bystander vs. Helper), Guest SOS emergency flow, clean bottom navigation bar, and detailed step-by-step page designs.
+This document specifies the structural wireframes, layout logic, and user flows for **Paw ResQ**, incorporating the mandatory location-first architecture, dual user perspectives (Bystander vs. Helper), Guest SOS emergency flow, clean bottom navigation bar, voice-command transcription engine, and detailed step-by-step page designs.
 
 ---
 
@@ -18,7 +18,7 @@ flowchart TD
     ManualPin --> Home
     
     Home --> SOSClick["Tap: Found an Animal (SOS)"]
-    SOSClick --> FastReport["Guest Emergency SOS Form"]
+    SOSClick --> FastReport["Guest Emergency SOS Form (Supports Voice SOS Dictation)"]
     FastReport --> PhoneOTP["Quick 1-Tap Phone OTP Verification"]
     PhoneOTP --> Dispatch["Dispatch Multi-Broadcast Alert"]
 ```
@@ -47,6 +47,7 @@ flowchart TD
 |   +-----------------------------------------------------+   |
 |   | 🚨 FOUND AN INJURED ANIMAL (HERO SOS CARD)          |   |
 |   |    Tap for Immediate Location-Based Help            |   |
+|   |    🎙️ [Hold to Speak Voice SOS]                     |   |
 |   +-----------------------------------------------------+   |
 |                                                             |
 |   +--------------------------+  +-----------------------+   |
@@ -65,13 +66,13 @@ flowchart TD
 
 ---
 
-## 5. Page 2: Emergency SOS Flow (Bystander vs. Helper Dual Perspective)
+## 5. Page 2: Emergency SOS Flow (With Voice Dictation Engine)
 
-### Bystander Creation Flow (Strict Priority Order)
+### Bystander Creation Flow
 1. **Step 2.1: LOCATION (MANDATORY):** Auto GPS pin lock + Landmark note. Cannot be skipped.
-2. **Step 2.2: CONDITION & HAZARD TAGS (MANDATORY):** Species, Severity badge, Hazard flags. Cannot be skipped.
+2. **Step 2.2: CONDITION & HAZARD TAGS (MANDATORY):** Select tags OR **Hold Mic Button to Dictate** (e.g., *"Injured dog bleeding near banyan tree"* ➔ AI auto-selects `Dog` + `Bleeding` tags + transcribes text).
 3. **Step 2.3: RECIPIENT SELECTOR (MANDATORY):** Multi-select (Volunteers, NGOs, Vets, Transport). Cannot be skipped.
-4. **Step 2.4: PHOTO UPLOAD (OPTIONAL / SECONDARY):** Upload photo or tap `[ SKIP & DISPATCH INSTANTLY ]`. Can add photo later while waiting for helper.
+4. **Step 2.4: PHOTO UPLOAD (OPTIONAL):** Upload photo or tap `[ SKIP & DISPATCH INSTANTLY ]`.
 
 ---
 
@@ -99,44 +100,32 @@ flowchart TD
 
 ---
 
-## 7. Page 4: In-App Chat & Communication Console (`[ 💬 Chat ]` Tab)
-
-### Overview
-Page 4 serves as the central communication hub. It features two modes:
-1. **Emergency Active Rescue Console:** Real-time, action-assisted chat between Bystander and Accepted Helper during an active rescue.
-2. **Direct Messages Inbox:** Conversations with clinics, NGOs, and volunteers for non-emergency inquiries.
-
----
-
-### Layout: Active Emergency Rescue Chat Screen
+## 7. Page 4: In-App Chat & Communication Console (With Voice & Transcription)
 
 ```
 +-------------------------------------------------------------+
 | [←]  Rahul M. (Volunteer) 🟢 En Route (4 mins)  [📞 Call]   |
 +-------------------------------------------------------------+
 | 🤖 [System]: SOS Alert accepted by Rahul M.                 |
-| 🤖 [System]: Live Location shared. ETA ~ 4 mins.           |
 |                                                             |
-| [Helper]: "I'm on my way on my bike. Please keep the dog  |
-|           covered with a cloth if possible." (10:14 AM)     |
+| [Bystander - Voice Message]:                                |
+| 🔊 ▶ [•••••••••••••••••] 0:12 sec                          |
+| 📄 Transcribed Text: "He is moving towards the tea stall   |
+|    near pillar 14, please hurry."                           |
 |                                                             |
-| [Bystander]: "Okay, I have covered him. He is near the      |
-|              banyan tree." (10:15 AM)                       |
+| [Helper]: "Got it, I am turning into the street now."       |
 |                                                             |
 | +---------------------------------------------------------+ |
 | | Quick Actions: [📸 Add Photo] [📍 Re-send Pin] [🤝 Arrived]| |
 | +---------------------------------------------------------+ |
-| | Type a message...                                | [▶]  | |
+| | Type a message...                        | 🎙️ | [▶]     | |
 +-------------------------------------------------------------+
 | [🏠 Home]   [🔍 Search]   [🚨 SOS]   [💬 Chat]   [👤 Profile]|
 +-------------------------------------------------------------+
 ```
 
-### Key Features of Page 4:
-1. **Header Live Status:** Displays Helper name, Verified badge, live ETA ("En Route - 4 mins away"), and direct emergency call button.
-2. **Automated System Timeline Logs:** Keeps a transparent audit trail of dispatch milestones (`Alert Accepted`, `Location Locked`, `Handoff Confirmed`).
-3. **Emergency Quick Action Chips above Text Box:** 1-tap shortcuts for critical moments:
-   - `[ 📸 Add Photo Later ]` (Uploads photo after initial report dispatch)
-   - `[ 📍 Re-send Pin ]` (Updates location if animal moves)
-   - `[ 🤝 Handoff Complete ]` (Triggers rescue completion & rating prompt)
-4. **Post-Rescue Rating Modal:** Automatically pops up when `Handoff Complete` is pressed, allowing the bystander to rate the helper and leave a review.
+### Voice Command Architecture Details:
+1. **Dual Voice Modes:**
+   - **Mode A (Voice Note):** Sends playable audio waveform (`🔊 ▶ 0:12 sec`).
+   - **Mode B (Live Speech-to-Text Transcription):** Converts spoken voice into text in real time, displaying both the playable audio AND text transcript in chat so helpers can read silently or listen while driving.
+2. **Emergency Voice SOS Dictation:** On the SOS creation screen, holding the mic button auto-populates condition tags and landmark text notes automatically.
