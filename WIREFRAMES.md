@@ -124,8 +124,53 @@ flowchart TD
 +-------------------------------------------------------------+
 ```
 
-### Voice Command Architecture Details:
-1. **Dual Voice Modes:**
-   - **Mode A (Voice Note):** Sends playable audio waveform (`🔊 ▶ 0:12 sec`).
-   - **Mode B (Live Speech-to-Text Transcription):** Converts spoken voice into text in real time, displaying both the playable audio AND text transcript in chat so helpers can read silently or listen while driving.
-2. **Emergency Voice SOS Dictation:** On the SOS creation screen, holding the mic button auto-populates condition tags and landmark text notes automatically.
+---
+
+## 8. Page 5: Profile & Impact History Screen (`[ 👤 Profile ]` Tab)
+
+### Overview
+Page 5 handles user identity, rescue impact metrics, credential verification for helpers, and historical tracking of all past animals helped.
+
+```
++-------------------------------------------------------------+
+| [⚙️ Settings]                MY PROFILE         [🔔 Notifications]|
++-------------------------------------------------------------+
+|                                                             |
+|    ( 👤 Avatar )   Priyanka Sharma                          |
+|                    📍 Hitech City, Hyderabad                |
+|                    🎖️ Life Saver Level 2 (3 Animals Saved)  |
+|                                                             |
+| +---------------------------------------------------------+ |
+| | 🏅 COMMUNITY BADGES: [🐾 First Responder] [❤️ Caretaker]| |
+| +---------------------------------------------------------+ |
+|                                                             |
+|  --- 📜 PAST ANIMALS HELPED (RESCUE LOGS) ---              |
+|                                                             |
+|  +-------------------------------------------------------+  |
+|  | 🐶 "Tommy" (Brown Street Dog)       🟢 Recovered & Adopted|  |
+|  |    Reported: Sep 24, 2026 | Rescuer: Rahul M.         |  |
+|  |    🖼️ [View Recovery Photos & Health Updates]        |  |
+|  +-------------------------------------------------------+  |
+|                                                             |
+|  +-------------------------------------------------------+  |
+|  | 🐱 Injured Kitten                   🟡 Under Treatment   |  |
+|  |    Reported: Oct 02, 2026 | Clinic: Dr. Sharma Pet    |  |
+|  |    🖼️ [View Clinic Case Progress]                      |  |
+|  +-------------------------------------------------------+  |
+|                                                             |
+|  --- 🛡️ HELPER VERIFICATION PORTAL ---                      |
+|  +-------------------------------------------------------+  |
+|  | Want to respond to rescues as a Volunteer, NGO, or Vet?|  |
+|  | [ 📄 Submit Govt ID / Medical License for Verification ]|  |
+|  +-------------------------------------------------------+  |
+|                                                             |
++-------------------------------------------------------------+
+| [🏠 Home]   [🔍 Search]   [🚨 SOS]   [💬 Chat]   [👤 Profile]|
++-------------------------------------------------------------+
+```
+
+### Key Components of Page 5:
+1. **User Identity & Impact Dashboard:** Displays user name, location, impact level (e.g. *Life Saver Level 2 — 3 Animals Saved*), and community badges.
+2. **Past Animals Helped Timeline (Case Logs):** Detailed history cards for every rescue initiated by the user, featuring real-time recovery status (`🟢 Recovered & Adopted`, `🟡 Under Treatment`, `🔵 Sheltered`) and recovery photos uploaded by shelters/vets.
+3. **Helper Verification Portal:** Allows volunteers, NGOs, and vets to upload Aadhaar/Govt ID, NGO registration certificates, or medical licenses to earn the **Verified Helper Badge ✓**.
+4. **App Settings & Preferences:** Location radius settings, notification preferences, and emergency hotlines.
