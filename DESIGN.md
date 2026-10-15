@@ -1,68 +1,87 @@
 # Paw ResQ: Visual Design System & Tokens (Phase 5)
 
 ## 1. Brand Identity & Aesthetic Philosophy
-**Paw ResQ** balances **emergency urgency** with **warm human empathy**. Unlike cold clinical medical apps or harsh red-alert security tools, Paw ResQ utilizes a soft, organic, and welcoming color palette designed to calm a panicked bystander while maintaining high legibility under pressure.
+**Paw ResQ** embodies an **editorial, empathetic, and organic** design language developed under the creative direction of NIFT Fashion Communication. It intentionally rejects cold clinical tech aesthetics and alarming sirens in favor of tactile warmth, high-legibility modernism, and visual calm under pressure.
 
-* **Core Aesthetic Keywords:** *Compassionate Warmth, Calm Resilience, High Visibility, Human Connection.*
+* **Core Aesthetic Keywords:** *Linen Warmth, Organic Geometry, High-Visibility Coral, Soft-Line Minimalism.*
 
 ---
 
-## 2. Color Palette & UI Design Tokens
+## 2. Color Palette & The 60-30-10 Harmony Rule
+
+To balance the gentle comfort of **Linen** with the welcoming spirit of **Warm Amber** and the urgency of **High-Visibility Coral**, our palette applies the editorial 60-30-10 distribution:
+
+```
+┌──────────────────────────────────────┬──────────────────────┬───────────┐
+│           60% Base Canvas            │     30% Structure    │10% Accent │
+│      Soothing Organic Linen          │  Warm Amber / Earth  │ Hi-Vis    │
+│            (#F6F3EE)                 │      (#D87440)       │ Coral     │
+│                                      │                      │ (#E04832) │
+└──────────────────────────────────────┴──────────────────────┴───────────┘
+```
 
 ### Color Tokens
 
-| Token Name | Hex Code | Color Preview | Purpose / UI Application |
+| Token Name | Hex Code | Swatch Name | UI Role & Purpose |
 | :--- | :--- | :--- | :--- |
-| `color-primary-amber` | `#E06D53` | 🟠 Warm Terracotta | Primary Hero Buttons, Brand Headers, Main Navigation Icons |
-| `color-emergency-coral` | `#D94E34` | 🔴 Emergency Coral | High-priority SOS Button, Bleeding/Critical Severity Badges |
-| `color-healing-sage` | `#5E9B7E` | 🟢 Sage Green | Verified Badges, Open 24/7 Status, Helper Accepted Banner |
-| `color-bg-cream` | `#FAF7F2` | 🐚 Soothing Cream | Global App Background (Soft, low glare, comforting) |
-| `color-surface-white` | `#FFFFFF` | ⚪ Warm White | Card Containers, Modals, Input Fields |
-| `color-text-primary` | `#2B2B2B` | ⬛ Deep Charcoal | Primary Headings, Title Text (High Contrast Legibility) |
-| `color-text-secondary` | `#6E6A66` | 🩶 Muted Taupe | Subtitles, Metadata, Distance & Timestamp Labels |
-| `color-border-subtle` | `#E6E0D8` | 🔲 Soft Border | Card Outlines, Divider Lines |
+| `color-base-linen` | `#F6F3EE` | 🐚 Organic Linen | **60% Primary Canvas:** Screen backgrounds, soft page canvas, glare-free outdoor legibility. |
+| `color-surface-card` | `#FFFFFF` | ⚪ Warm White | Card containers, bottom sheets, form input fields. |
+| `color-brand-amber` | `#D87440` | 🟠 Warm Amber | **30% Structure:** Secondary buttons, active navigation states, community highlight cards. |
+| `color-accent-coral` | `#E04832` | 🔴 High-Vis Coral | **10% Emergency Accent:** Hero SOS button, critical alert badges, live action calls. |
+| `color-healing-sage` | `#4F8B71` | 🟢 Healing Sage | Verified responder badges, open 24/7 indicators, safe status tags. |
+| `color-text-charcoal`| `#23211F` | ⬛ Deep Earth Charcoal | High-contrast readable typography for headings & body copy. |
+| `color-text-muted`   | `#726B64` | 🩶 Soft Clay Taupe | Secondary subtitles, timestamps, distance counters. |
+| `color-border-soft`  | `#E8E2D9` | 🔲 Muted Linen Border | Subtle 1px dividers and organic card outlines. |
 
 ---
 
-## 3. Typography Hierarchy & Font Tokens
+## 3. Typographic System: 2-Typeface Hierarchy
 
-* **Primary Font Family:** `Plus Jakarta Sans` or `Inter` (Humanist, highly accessible sans-serif font designed for screen legibility).
+To keep the interface clean, modern, and uncluttered, only **two typefaces** are used across the entire product:
 
-| Style Level | Font Weight | Size | Line Height | Application |
-| :--- | :--- | :--- | :--- | :--- |
-| **Heading 1 (H1)** | Bold (700) | 26px / 1.6 rem | 32px | Screen Titles, Main SOS Alert Banners |
-| **Heading 2 (H2)** | SemiBold (600) | 20px / 1.25 rem | 26px | Card Section Headers, Provider Names |
-| **Heading 3 (H3)** | Medium (500) | 16px / 1.0 rem | 22px | Subheaders, Input Labels, Tab Titles |
-| **Body Regular** | Regular (400) | 14px / 0.875 rem | 20px | Chat Messages, Description Text, First-Aid Tips |
-| **Microcopy / Badges** | Medium (500) | 12px / 0.75 rem | 16px | Status Pill Badges, Distances, Timestamps |
+1. **Display & Headings:** `Plus Jakarta Sans` (Bold, contemporary geometric grotesque with humanized curves. Zero calligraphy; 100% bold editorial clarity).
+2. **Body & UI Elements:** `Inter` (The world standard for mobile legibility, neutral x-height, rapid scanability under stress).
+
+### Typographic Scale
+
+| Level | Typeface | Weight | Size | Line Height | Usage |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| **Display H1** | Plus Jakarta Sans | Bold (700) | 26px / 1.6rem | 32px | Screen titles, Emergency Hero Card heading |
+| **Card H2** | Plus Jakarta Sans | SemiBold (600)| 20px / 1.25rem| 26px | Provider names, SOS alert titles |
+| **Subhead H3** | Plus Jakarta Sans | SemiBold (600)| 16px / 1.0rem | 22px | Section labels, modal headers |
+| **Body Regular** | Inter | Regular (400) | 14px / 0.875rem | 20px | Chat messages, first-aid text, explanations |
+| **Body Small** | Inter | Medium (500) | 12px / 0.75rem | 16px | Status labels, timestamps, distance badges |
 
 ---
 
-## 4. Microcopy & Tone of Voice Guidelines
+## 4. Microcopy & Tone of Voice: Softer Sentence Case
 
-| UI Context | Cold / Technical Copy (Avoid) | Paw ResQ Reassuring Microcopy (Use) |
+All headings, buttons, and status indicators strictly employ **softer sentence case** rather than harsh, shouting uppercase tokens:
+
+| UI Context | Harsh / Robotic (Avoid) | Paw ResQ Softer Sentence Case (Approved) |
 | :--- | :--- | :--- |
-| **SOS Confirmation** | "Incident #3409 Submitted to Database." | "Help is on the way! Alerting 8 nearby rescuers..." |
-| **Location Detection** | "GPS Position Locked." | "📍 Located near Hitech City. We're pinpointing your help zone." |
-| **Helper Acceptance** | "User #92 Accepted Assignment." | " Rahul M. (Verified Volunteer) is en route! ETA ~ 4 mins." |
-| **First-Aid Guidance** | "Caution: Risk of rabies infection." | "💡 Keep a safe distance & stay calm. Help is arriving shortly." |
+| **Emergency Button** | `EMERGENCY SOS NOW` | 🚨 Found an animal |
+| **Helper Found** | `RESCUER ASSIGNED` | Helper found: Rahul M. is on the way |
+| **Verification** | `VERIFIED NGO` | Verified NGO ✓ |
+| **Chat Notice** | `LIVE LOCATION LOCKED` | Live location shared with helper |
+| **Empty State** | `NO RESCUES FOUND` | No emergencies in your area right now |
 
 ---
 
-## 5. UI Component States & Styling Rules
+## 5. Tactile UI Geometry & Soft-Line Iconography
 
-### 1. Emergency Hero SOS Button (`Hero Button Component`)
-* **Shape:** Large 16px Rounded Rectangle with subtle inner padding.
-* **Background:** `color-emergency-coral` (`#D94E34`) with soft pulse animation.
-* **Text:** Bold White 18px + Microphone icon for Voice Dictation.
+### 1. Organic Card Geometry
+* **Corner Radius:** Generous `20px` to `24px` smooth border-radius for an organic, friendly, welcoming feel.
+* **Surface Styling:** Pure white (`#FFFFFF`) elevated over linen background (`#F6F3EE`) with a subtle `1px solid #E8E2D9` outline and a soft ambient shadow (`box-shadow: 0 4px 16px rgba(35, 33, 31, 0.04)`).
+* **Pill Badges:** Complete rounded capsule pills (`border-radius: 9999px`) with gentle padding (`4px 12px`).
 
-### 2. Status & Hazard Badges (`Pill Component`)
-* **Shape:** Fully rounded 20px capsule pills.
-* **Variants:**
-  * `Verified Helper ✓`: Green background (`#5E9B7E`) + White bold text.
-  * `Bleeding / Critical`: Red Tint background (`#FCEAE6`) + Dark Red text (`#D94E34`).
-  * `Biting Risk ⚠️`: Amber Tint background (`#FFF4E5`) + Dark Amber text (`#B86E00`).
+### 2. Soft-Line Minimalist Iconography
+To prevent visual clutter alongside warm amber and coral colors:
+* **Stroke Weight:** 1.75px uniform thin lines with rounded terminal caps.
+* **Style:** Outline minimalist (e.g., Lucide / Feather icon style). No heavy fills or cartoonish motifs.
+* **Icon Color:** Inherits `color-text-charcoal` (`#23211F`) or `color-brand-amber` (`#D87440`).
 
-### 3. Card Containers (`Surface Component`)
-* **Shape:** 16px Rounded Corners with subtle `1px solid #E6E0D8` border.
-* **Shadow:** Soft 4px blur, 2% opacity elevation shadow for depth.
+### 3. Hero SOS Button Spec
+* **Background:** `color-accent-coral` (`#E04832`) with a gentle, non-aggressive pulse animation.
+* **Typography:** Plus Jakarta Sans Bold, 17px, White (`#FFFFFF`).
+* **Geometry:** `20px` rounded corner rectangle with generous `18px 24px` touch target.
